@@ -1,33 +1,37 @@
 #include <lib/move.h>
 #include <lib/print.h>
+#include <string>
 
-void translate(char* step, motion* motion)
+using namespace std;
+
+void translate(std::string* step, motion* motion)
 {
-    switch (strlen(step)) {
+    switch (step->length()) {
     case 5:
-        motion->y1 = desk_size - ((int)step[1] - (int)'0');
-        motion->x1 = (int)step[0] - (int)'a';
-        motion->y2 = desk_size - ((int)step[4] - (int)'0');
-        motion->x2 = (int)step[3] - (int)'a';
+        motion->y1 = desk_size - ((int)step->at(1) - (int)'0');
+        motion->x1 = (int)step->at(0) - (int)'a';
+        motion->y2 = desk_size - ((int)step->at(4) - (int)'0');
+        motion->x2 = (int)step->at(3) - (int)'a';
         break;
     case 6:
-        if (step[5] != '#') {
-            motion->y1 = desk_size - ((int)step[2] - (int)'0');
-            motion->x1 = (int)step[1] - (int)'a';
-            motion->y2 = desk_size - ((int)step[5] - (int)'0');
-            motion->x2 = (int)step[4] - (int)'a';
-        } else {
-            motion->y1 = desk_size - ((int)step[1] - (int)'0');
-            motion->x1 = (int)step[0] - (int)'a';
-            motion->y2 = desk_size - ((int)step[4] - (int)'0');
-            motion->x2 = (int)step[3] - (int)'a';
+        if (step->at(5) != '#') {
+            motion->y1 = desk_size - ((int)step->at(2) - (int)'0');
+            motion->x1 = (int)step->at(1) - (int)'a';
+            motion->y2 = desk_size - ((int)step->at(5) - (int)'0');
+            motion->x2 = (int)step->at(4) - (int)'a';
+        }
+        else {
+            motion->y1 = desk_size - ((int)step->at(1) - (int)'0');
+            motion->x1 = (int)step->at(0) - (int)'a';
+            motion->y2 = desk_size - ((int)step->at(4) - (int)'0');
+            motion->x2 = (int)step->at(3) - (int)'a';
         }
         break;
     case 7:
-        motion->y1 = desk_size - ((int)step[2] - (int)'0');
-        motion->x1 = (int)step[1] - (int)'a';
-        motion->y2 = desk_size - ((int)step[5] - (int)'0');
-        motion->x2 = (int)step[4] - (int)'a';
+        motion->y1 = desk_size - ((int)step->at(2) - (int)'0');
+        motion->x1 = (int)step->at(1) - (int)'a';
+        motion->y2 = desk_size - ((int)step->at(5) - (int)'0');
+        motion->x2 = (int)step->at(4) - (int)'a';
     default:
         break;
     }
@@ -36,7 +40,7 @@ void translate(char* step, motion* motion)
 bool moveKing(char desk[desk_size][desk_size], motion motion, bool error_output)
 {
     if (!((desk[motion.y1][motion.x1] == 'K')
-          || (desk[motion.y1][motion.x1] == 'k'))) {
+        || (desk[motion.y1][motion.x1] == 'k'))) {
         if (error_output == true)
             printf("\nError: Wrong body\n");
         return false;
@@ -51,18 +55,18 @@ bool moveKing(char desk[desk_size][desk_size], motion motion, bool error_output)
 }
 
 bool moveQueen(
-        char desk[desk_size][desk_size], motion motion, bool error_output)
+    char desk[desk_size][desk_size], motion motion, bool error_output)
 {
     if (!((desk[motion.y1][motion.x1] == 'Q')
-          || (desk[motion.y1][motion.x1] == 'q'))) {
+        || (desk[motion.y1][motion.x1] == 'q'))) {
         if (error_output == true)
             printf("\nError: Wrong body\n");
         return false;
     }
     if (!((abs(motion.x1 - motion.x2) == abs(motion.y1 - motion.y2))
-          || ((motion.y2 - motion.y1 == 0) && (abs(motion.x1 - motion.x2) > 0))
-          || ((motion.x2 - motion.x1 == 0)
-              && (abs(motion.y1 - motion.y2) > 0)))) {
+        || ((motion.y2 - motion.y1 == 0) && (abs(motion.x1 - motion.x2) > 0))
+        || ((motion.x2 - motion.x1 == 0)
+            && (abs(motion.y1 - motion.y2) > 0)))) {
         if (error_output == true)
             printf("\nError: Wrong move\n");
         return false;
@@ -175,14 +179,14 @@ bool moveQueen(
 bool moveRook(char desk[desk_size][desk_size], motion motion, bool error_output)
 {
     if (!((desk[motion.y1][motion.x1] == 'R')
-          || (desk[motion.y1][motion.x1] == 'r'))) {
+        || (desk[motion.y1][motion.x1] == 'r'))) {
         if (error_output == true)
             printf("\nError: Wrong body\n");
         return false;
     }
     if (!(((motion.y2 - motion.y1 == 0) && (abs(motion.x1 - motion.x2) > 0))
-          || ((motion.x2 - motion.x1 == 0)
-              && (abs(motion.y1 - motion.y2) > 0)))) {
+        || ((motion.x2 - motion.x1 == 0)
+            && (abs(motion.y1 - motion.y2) > 0)))) {
         if (error_output == true)
             printf("\nError: Wrong move\n");
         return false;
@@ -239,18 +243,18 @@ bool moveRook(char desk[desk_size][desk_size], motion motion, bool error_output)
 }
 
 bool moveKnight(
-        char desk[desk_size][desk_size], motion motion, bool error_output)
+    char desk[desk_size][desk_size], motion motion, bool error_output)
 {
     if (!((desk[motion.y1][motion.x1] == 'N')
-          || (desk[motion.y1][motion.x1] == 'n'))) {
+        || (desk[motion.y1][motion.x1] == 'n'))) {
         if (error_output == true)
             printf("\nError: Wrong body\n");
         return false;
     }
     if (!(((abs(motion.y2 - motion.y1) == 2)
-           && (abs(motion.x1 - motion.x2) == 1))
-          || ((abs(motion.x2 - motion.x1) == 2)
-              && (abs(motion.y1 - motion.y2) == 1)))) {
+        && (abs(motion.x1 - motion.x2) == 1))
+        || ((abs(motion.x2 - motion.x1) == 2)
+            && (abs(motion.y1 - motion.y2) == 1)))) {
         if (error_output == true)
             printf("\nError: Wrong move\n");
         return false;
@@ -259,10 +263,10 @@ bool moveKnight(
 }
 
 bool moveBishop(
-        char desk[desk_size][desk_size], motion motion, bool error_output)
+    char desk[desk_size][desk_size], motion motion, bool error_output)
 {
     if (!((desk[motion.y1][motion.x1] == 'B')
-          || (desk[motion.y1][motion.x1] == 'b'))) {
+        || (desk[motion.y1][motion.x1] == 'b'))) {
         if (error_output == true)
             printf("\nError: Wrong body\n");
         return false;
@@ -330,13 +334,13 @@ bool moveBishop(
 }
 
 bool movePawn(
-        char* step,
-        motion motion,
-        char desk[desk_size][desk_size],
-        bool moveW,
-        bool error_output)
+    string* step,
+    motion motion,
+    char desk[desk_size][desk_size],
+    bool moveW,
+    bool error_output)
 {
-    if (!((step[2] == '-') || (step[2] == 'x'))) {
+    if (!((step->at(2) == '-') || (step->at(2) == 'x'))) {
         if (error_output == true)
             printf("\nError: Unknown step\n");
         return false;
@@ -354,12 +358,12 @@ bool movePawn(
         return false;
     }
     if (!((desk[motion.y1][motion.x1] == 'p')
-          || (desk[motion.y1][motion.x1] == 'P'))) {
+        || (desk[motion.y1][motion.x1] == 'P'))) {
         if (error_output == true)
             printf("\nError: The input must move pawns\n");
         return false;
     }
-    if (step[2] == '-') {
+    if (step->at(2) == '-') {
         if (motion.x1 != motion.x2) {
             if (error_output == true)
                 printf("\nError: Pawns only move straight\n");
@@ -382,7 +386,7 @@ bool movePawn(
                     || (motion.y1 - motion.y2 < 1)) {
                     if (error_output == true)
                         printf("\nError: At first move pawns can move 1-2 "
-                               "squares\n");
+                            "squares\n");
                     return false;
                 }
                 if ((motion.y1 - motion.y2 == 2)
@@ -391,11 +395,12 @@ bool movePawn(
                         printf("\nError: You can't step like that\n");
                     return false;
                 }
-            } else {
+            }
+            else {
                 if (motion.y1 - motion.y2 != 1) {
                     if (error_output == true)
                         printf("\nError: After the first move pawns can move 1 "
-                               "square\n");
+                            "square\n");
                     return false;
                 }
             }
@@ -411,7 +416,7 @@ bool movePawn(
                     || (motion.y2 - motion.y1 < 1)) {
                     if (error_output == true)
                         printf("\nError: At first move pawns can move 1-2 "
-                               "squares\n");
+                            "squares\n");
                     return false;
                 }
                 if ((motion.y2 - motion.y1 == 2)
@@ -421,17 +426,18 @@ bool movePawn(
                     return false;
                 }
 
-            } else {
+            }
+            else {
                 if (motion.y2 - motion.y1 != 1) {
                     if (error_output == true)
                         printf("\nError: After the first move pawns can move 1 "
-                               "square\n");
+                            "square\n");
                     return false;
                 }
             }
         }
     }
-    if (step[2] == 'x') {
+    if (step->at(2) == 'x') {
         if (desk[motion.y2][motion.x2] == ' ') {
             if (error_output == true)
                 printf("\nError: You can't take an empty cell\n");
@@ -440,21 +446,21 @@ bool movePawn(
         if (abs(motion.x1 - motion.x2) != 1) {
             if (error_output == true)
                 printf("\nError: You can only take diagonally 1 cell to "
-                       "the sides\n");
+                    "the sides\n");
             return false;
         }
         if ((desk[motion.y1][motion.x1] == 'P')
             && (motion.y1 - motion.y2 != 1)) {
             if (error_output == true)
                 printf("\nError: You can only take diagonally 1 cell to "
-                       "the sides\n");
+                    "the sides\n");
             return false;
         }
         if ((desk[motion.y1][motion.x1] == 'p')
             && (motion.y2 - motion.y1 != 1)) {
             if (error_output == true)
                 printf("\nError: You can only take diagonally 1 cell to "
-                       "the sides\n");
+                    "the sides\n");
             return false;
         }
         if ((moveW == true) && (desk[motion.y1][motion.x1] == 'p')) {
@@ -468,8 +474,8 @@ bool movePawn(
             return false;
         }
         if (((moveW == true)
-             && ((desk[motion.y2][motion.x2] >= 65)
-                 && (desk[motion.y2][motion.x2] <= 90)))
+            && ((desk[motion.y2][motion.x2] >= 65)
+                && (desk[motion.y2][motion.x2] <= 90)))
             || ((moveW == false)
                 && ((desk[motion.y2][motion.x2] >= 97)
                     && (desk[motion.y2][motion.x2] <= 122)))) {
@@ -483,25 +489,25 @@ bool movePawn(
 }
 
 bool movecheck(
-        char* step,
-        motion motion,
-        char desk[desk_size][desk_size],
-        bool moveW,
-        bool output)
+    string* step,
+    motion motion,
+    char desk[desk_size][desk_size],
+    bool moveW,
+    bool output)
 {
     bool error_output;
     if (output == false)
         error_output = false;
     else
         error_output = true;
-    switch (strlen(step)) {
+    switch (step->length()) {
     case 5:
         if (movePawn(step, motion, desk, moveW, error_output) == false)
             return false;
         break;
     case 6:
-        if (step[5] != '#') {
-            if (!((step[3] == '-') || (step[3] == 'x'))) {
+        if (step->at(5) != '#') {
+            if (!((step->at(3) == '-') || (step->at(3) == 'x'))) {
                 if (output == true)
                     printf("\nError: Unknown step\n");
                 return false;
@@ -518,12 +524,12 @@ bool movecheck(
                     printf("\nError: The starting cell is empty\n");
                 return false;
             }
-            if ((desk[motion.y2][motion.x2] != ' ') && (step[3] == '-')) {
+            if ((desk[motion.y2][motion.x2] != ' ') && (step->at(3) == '-')) {
                 if (output == true)
                     printf("\nError: You cannot make a silent move\n");
                 return false;
             }
-            if ((desk[motion.y2][motion.x2] == ' ') && (step[3] == 'x')) {
+            if ((desk[motion.y2][motion.x2] == ' ') && (step->at(3) == 'x')) {
                 if (output == true)
                     printf("\nError: You can't take an empty cell\n");
                 return false;
@@ -543,8 +549,8 @@ bool movecheck(
                 return false;
             }
             if (((moveW == true)
-                 && ((desk[motion.y2][motion.x2] >= 65)
-                     && (desk[motion.y2][motion.x2] <= 90)))
+                && ((desk[motion.y2][motion.x2] >= 65)
+                    && (desk[motion.y2][motion.x2] <= 90)))
                 || ((moveW == false)
                     && ((desk[motion.y2][motion.x2] >= 97)
                         && (desk[motion.y2][motion.x2] <= 122)))) {
@@ -552,49 +558,54 @@ bool movecheck(
                     printf("\nError: You can't attack your pieces\n");
                 return false;
             }
-            if (step[0] == 'K') { // King
+            if (step->at(0) == 'K') { // King
                 if (moveKing(desk, motion, error_output) == false)
                     return false;
-            } else if (step[0] == 'n') {
+            }
+            else if (step->at(0) == 'n') {
                 if (output == true)
                     printf("\nError: Body type is capitalized\n");
                 return false;
             }
-            if (step[0] == 'Q') { // Queen
+            if (step->at(0) == 'Q') { // Queen
                 if (moveQueen(desk, motion, error_output) == false)
                     return false;
-            } else if (step[0] == 'n') {
+            }
+            else if (step->at(0) == 'n') {
                 if (output == true)
                     printf("\nError: Body type is capitalized\n");
                 return false;
             }
-            if (step[0] == 'R') { // Rook
+            if (step->at(0) == 'R') { // Rook
                 if (moveRook(desk, motion, error_output) == false)
                     return false;
-            } else if (step[0] == 'n') {
+            }
+            else if (step->at(0) == 'n') {
                 if (output == true)
                     printf("\nError: Body type is capitalized\n");
                 return false;
             }
-            if (step[0] == 'N') { // kNight
+            if (step->at(0) == 'N') { // kNight
                 if (moveKnight(desk, motion, error_output) == false)
                     return false;
-            } else if (step[0] == 'n') {
+            }
+            else if (step->at(0) == 'n') {
                 if (output == true)
                     printf("\nError: Body type is capitalized\n");
                 return false;
             }
-            if (step[0] == 'B') { // Bishop
+            if (step->at(0) == 'B') { // Bishop
                 if (moveBishop(desk, motion, error_output) == false)
                     return false;
-            } else if (step[0] == 'n') {
+            }
+            else if (step->at(0) == 'n') {
                 if (output == true)
                     printf("\nError: Body type is capitalized\n");
                 return false;
             }
         }
-        if (step[5] == '#') {
-            if (step[2] != 'x') {
+        if (step->at(5) == '#') {
+            if (step->at(2) != 'x') {
                 if (output == true)
                     printf("\nError: Wrong mate\n");
                 return false;
@@ -605,12 +616,12 @@ bool movecheck(
         break;
     case 7:
         error_output = false;
-        if (step[6] != '#') {
+        if (step->at(6) != '#') {
             if (output == true)
                 printf("\nError: Wrong step\n");
             return false;
         }
-        if (step[3] != 'x') {
+        if (step->at(3) != 'x') {
             if (output == true)
                 printf("\nError: Wrong mate\n");
             return false;
@@ -630,8 +641,8 @@ bool movecheck(
             return false;
         }
         if (((moveW == true)
-             && ((desk[motion.y2][motion.x2] >= 65)
-                 && (desk[motion.y2][motion.x2] <= 90)))
+            && ((desk[motion.y2][motion.x2] >= 65)
+                && (desk[motion.y2][motion.x2] <= 90)))
             || ((moveW == false)
                 && ((desk[motion.y2][motion.x2] >= 97)
                     && (desk[motion.y2][motion.x2] <= 122)))) {
@@ -653,7 +664,7 @@ bool movecheck(
     return true;
 }
 
-int turn(char* step, motion motion, char desk[desk_size][desk_size], bool moveW)
+int turn(string* step, motion motion, char desk[desk_size][desk_size], bool moveW)
 {
     char type;
     bool output = true;
@@ -663,6 +674,7 @@ int turn(char* step, motion motion, char desk[desk_size][desk_size], bool moveW)
         desk[motion.y1][motion.x1] = ' ';
         desk[motion.y2][motion.x2] = type;
         return 0;
-    } else
+    }
+    else
         return 1;
 }
