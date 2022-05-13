@@ -1,5 +1,4 @@
+*.a
+*.d
 *.o
-.main.c.swp
-main.c~
-#main.c#
-main
+bin/chessviz
