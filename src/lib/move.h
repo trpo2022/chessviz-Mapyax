@@ -3,8 +3,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string>
 #define desk_size 8
+
+using namespace std;
 
 typedef struct motion {
     int y1;
@@ -15,36 +17,36 @@ typedef struct motion {
 
 void printdesk(char desk[desk_size][desk_size]);
 
-void translate(char* step, motion* motion);
+void translate(string* step, motion* motion);
 
 bool moveKing(
-        char desk[desk_size][desk_size], motion motion, bool error_output);
+    char desk[desk_size][desk_size], motion motion, bool error_output);
 
 bool moveQueen(
-        char desk[desk_size][desk_size], motion motion, bool error_output);
+    char desk[desk_size][desk_size], motion motion, bool error_output);
 
 bool moveRook(
-        char desk[desk_size][desk_size], motion motion, bool error_output);
+    char desk[desk_size][desk_size], motion motion, bool error_output);
 
 bool moveKnight(
-        char desk[desk_size][desk_size], motion motion, bool error_output);
+    char desk[desk_size][desk_size], motion motion, bool error_output);
 
 bool moveBishop(
-        char desk[desk_size][desk_size], motion motion, bool error_output);
+    char desk[desk_size][desk_size], motion motion, bool error_output);
 
 bool movePawn(
-        char* step,
-        motion motion,
-        char desk[desk_size][desk_size],
-        bool moveW,
-        bool error_output);
+    char* step,
+    motion motion,
+    char desk[desk_size][desk_size],
+    bool moveW,
+    bool error_output);
 
 bool movecheck(
-        char* step,
-        motion motion,
-        char desk[desk_size][desk_size],
-        bool moveW,
-        bool output);
+    char* step,
+    motion motion,
+    char desk[desk_size][desk_size],
+    bool moveW,
+    bool output);
 
 int turn(
-        char* step, motion motion, char desk[desk_size][desk_size], bool moveW);
+    string* step, motion motion, char desk[desk_size][desk_size], bool moveW);
