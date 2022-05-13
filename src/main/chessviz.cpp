@@ -1,7 +1,8 @@
-#include <lib/move.h>
-#include <lib/print.h>
+#include "move.h"
+#include "print.h"
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 int main()
@@ -32,7 +33,7 @@ int main()
         };
         printdesk(desk);
         printf("\n");
-        if ((line.at(6) == '#') || (line.at(5) == '#')) {
+        if ((line.size() > 6) && (line.at(6) == '#') || (line.size() > 5) && (line.at(5) == '#')) {
             if (moveW == true)
                 printf("Black Wins!\n");
             ;
@@ -44,3 +45,4 @@ int main()
     }
     return 0;
 }
+
