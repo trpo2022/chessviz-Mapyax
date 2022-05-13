@@ -49,4 +49,7 @@ bool movecheck(
     bool output);
 
 int turn(
-    string* step, motion motion, char desk[desk_size][desk_size], bool moveW);
+    string* step,
+    motion motion,
+    char desk[desk_size][desk_size],
+    bool moveW);
